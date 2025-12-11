@@ -16,7 +16,7 @@ apps:
     source:
       repoURL: https://github.com/Mangaal/argocd-yaml
       targetRevision: main
-      path: argocd-9        # folder with app-onboarding Application(s)
+      path: argocd-8      # folder with app-onboarding Application(s)
       helm: {}                         # optional: helm settings if this path is a chart
     destination:
       server: ""                       # empty = use defaultDestinationServer
@@ -34,7 +34,7 @@ apps:
     source:
       repoURL: https://github.com/Mangaal/argocd-yaml
       targetRevision: main
-      path: argocd-9                 # folder with plain k8s manifests or another Helm chart
+      path: argocd-8                 # folder with plain k8s manifests or another Helm chart
       helm: {}
     destination:
       server: ""                       # empty = use defaultDestinationServer
