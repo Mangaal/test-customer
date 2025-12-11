@@ -1,0 +1,61 @@
+# Namespace where Argo CD Applications live
+argocdNamespace: argocd
+
+# Default destination cluster (can be overridden per app)
+defaultDestinationServer: https://kubernetes.default.svc
+
+# Default project (can be overridden per app)
+defaultProject: default
+
+# Define all the child Applications here.
+# Each entry in "apps" becomes one Argo CD Application.
+apps:
+  # Example child app that manages other Argo CD apps (like app-onboarding)
+  - name: titan-argocd-9
+    project: default
+    source:
+      repoURL: https://github.com/Mangaal/argocd-yaml
+      targetRevision: main
+      path: argocd-9        # folder with app-onboarding Application(s)
+      helm: {}                         # optional: helm settings if this path is a chart
+    destination:
+      server: ""                       # empty = use defaultDestinationServer
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+  # Example child app that manages cluster workloads (like titan)
+  - name: titan
+    project: default
+    source:
+      repoURL: https://github.com/Mangaal/argocd-yaml
+      targetRevision: main
+      path: argocd-9                 # folder with plain k8s manifests or another Helm chart
+      helm: {}
+    destination:
+      server: ""                       # empty = use defaultDestinationServer
+      namespace: titan-namespace
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      # - ServerSideApply=true        # uncomment if you want SSA for this app
+
+  # Add more child apps here...
+  # - name: another-app
+  #   project: default
+  #   source:
+  #     repoURL: ...
+  #     targetRevision: ...
+  #     path: ...
+  #   destination:
+  #     server: ""
+  #     namespace: default
+
+

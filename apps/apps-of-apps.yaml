@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps-onboarding
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Mangaal/test-customer
+    targetRevision: main
+    path: charts/app-of-apps       # path to the Helm chart in this repo
+    helm:
+      releaseName: apps-onboarding
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+

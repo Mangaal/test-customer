@@ -1,0 +1,45 @@
+{{- $argocdNamespace := .Values.argocdNamespace | default "argocd" -}}
+{{- $defaultDestServer := .Values.defaultDestinationServer | default "https://kubernetes.default.svc" -}}
+{{- $defaultProject := .Values.defaultProject | default "default" -}}
+
+{{- range .Values.apps }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: {{ $argocdNamespace }}
+  labels:
+{{- if .labels }}
+{{ toYaml .labels | indent 4 }}
+{{- end }}
+{{- if .annotations }}
+  annotations:
+{{ toYaml .annotations | indent 4 }}
+{{- end }}
+spec:
+  project: {{ .project | default $defaultProject }}
+  source:
+    repoURL: {{ .source.repoURL }}
+    targetRevision: {{ .source.targetRevision | default "HEAD" }}
+    path: {{ .source.path | quote }}
+{{- if .source.helm }}
+    helm:
+{{ toYaml .source.helm | indent 6 }}
+{{- end }}
+  destination:
+    server: {{ .destination.server | default $defaultDestServer | quote }}
+    namespace: {{ .destination.namespace | quote }}
+{{- if .syncPolicy }}
+  syncPolicy:
+{{ toYaml .syncPolicy | indent 4 }}
+{{- end }}
+{{- if .syncOptions }}
+  syncOptions:
+{{- range .syncOptions }}
+    - {{ . }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+
