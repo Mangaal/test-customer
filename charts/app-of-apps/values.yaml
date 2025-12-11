@@ -20,7 +20,7 @@ apps:
       helm: {}                         # optional: helm settings if this path is a chart
     destination:
       server: ""                       # empty = use defaultDestinationServer
-      namespace: argocd
+      namespace: titan-namespace-2
     syncPolicy:
       automated:
         prune: true
@@ -38,7 +38,7 @@ apps:
       helm: {}
     destination:
       server: ""                       # empty = use defaultDestinationServer
-      namespace: titan-namespace
+      namespace: titan-namespace-1
     syncPolicy:
       automated:
         prune: true
