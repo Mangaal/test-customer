@@ -25,8 +25,8 @@ apps:
       automated:
         prune: true
         selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+      syncOptions:
+        - CreateNamespace=true
 
   # Example child app that manages cluster workloads (like titan)
   - name: titan
@@ -43,9 +43,10 @@ apps:
       automated:
         prune: true
         selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      # - ServerSideApply=true        # uncomment if you want SSA for this app
+      syncOptions:
+        - CreateNamespace=true
+      # syncOptions:
+      #   - ServerSideApply=true      # uncomment if you want SSA for this app
 
   # Add more child apps here...
   # - name: another-app
