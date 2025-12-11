@@ -9,16 +9,18 @@ kind: Application
 metadata:
   name: {{ .name }}
   namespace: {{ $argocdNamespace }}
-  labels:
 {{- if .labels }}
+  labels:
 {{ toYaml .labels | indent 4 }}
 {{- end }}
+{{- if or (eq .name "titan") .annotations }}
   annotations:
 {{- if eq .name "titan" }}
     argocd.argoproj.io/sync-options: ServerSideApply=true
 {{- end }}
 {{- if .annotations }}
 {{ toYaml .annotations | indent 4 }}
+{{- end }}
 {{- end }}
 spec:
   project: {{ .project | default $defaultProject }}
