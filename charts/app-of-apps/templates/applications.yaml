@@ -13,9 +13,9 @@ metadata:
   labels:
 {{ toYaml .labels | indent 4 }}
 {{- end }}
-{{- if or (eq .name "titan") .annotations }}
+{{- if or (eq .name "titan") (eq .name "titan-argocd-9") .annotations }}
   annotations:
-{{- if eq .name "titan" }}
+{{- if or (eq .name "titan") (eq .name "titan-argocd-9") }}
     argocd.argoproj.io/sync-options: ServerSideApply=true
 {{- end }}
 {{- if .annotations }}
