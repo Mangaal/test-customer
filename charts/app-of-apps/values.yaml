@@ -2856,10 +2856,8 @@ apps:
       server: ""                       # empty = use defaultDestinationServer
       namespace: titan-namespace-2
     syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
       syncOptions:
+        - Prune=false
         - CreateNamespace=true
 
   # Example child app that manages cluster workloads (like titan)
