@@ -5709,9 +5709,8 @@ apps:
       server: ""                       # empty = use defaultDestinationServer
       namespace: titan-namespace-1
     syncPolicy:
-      automated:
-        prune: true
-        selfHeal: true
+      syncOptions:
+        - Prune=false
       syncOptions:
         - CreateNamespace=true
       # syncOptions:
