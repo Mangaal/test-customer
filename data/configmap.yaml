@@ -1,1 +1,15 @@
-
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config
+data:
+  app.properties: |
+    app.name=demo-app
+    app.version=1.0.0
+    app.env=testing
+  config.json: |
+    {
+      "debug": true,
+      "max_connections": 100
+    }
+  simple_key: "simple_value"
